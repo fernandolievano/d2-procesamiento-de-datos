@@ -5,7 +5,7 @@
 **Tecnologías usadas:**
 
 - PySpark
-- Steamlit
+- Streamlit
 - Plotly
 
 **Conceptos vistos en clase aplicados**:
