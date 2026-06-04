@@ -1,9 +1,12 @@
-#
+from utils.logger import get_logger
+
+logger = get_logger(__name__)
+
 """
 Programa Principal
 """
 def main():
-  print('Desempeño 2 - Procesamiento de Datos')
+  logger.info('Iniciando programa principal')
 
 
 if __name__ == '__main__':
