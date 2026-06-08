@@ -9,7 +9,5 @@ def read_csv(spark, path):
     logger.info("Leyendo dataset...")
     df = spark.read.option("header", True).option("inferSchema", True).csv(path)
     logger.info(f"Dataset cargado correctamente")
-    logger.info(f"Cantidad de registros: {df.count()}")
-    logger.info(f"Cantidad de columnas: {len(df.columns)}")
 
     return df
