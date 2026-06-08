@@ -4,3 +4,4 @@ __pycache__
 output/*
 backlog.md
 *.log
+.idea

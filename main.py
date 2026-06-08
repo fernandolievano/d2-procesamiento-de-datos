@@ -13,9 +13,9 @@ def main():
 
   try:
     # Extraction
-    df_raw = read_csv(spark, DATA_PATH)
+    df = read_csv(spark, DATA_PATH)
   except Exception as e:
-    logger.error('Error al ejecutar el programa principal')
+    logger.exception('Error al ejecutar el programa principal')
     raise
   finally:
     spark.stop()
