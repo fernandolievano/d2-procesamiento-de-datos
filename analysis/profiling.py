@@ -13,7 +13,8 @@ def profiling(df: DataFrame):
     analyze_data_types(df)
     count_rows(df)
     count_columns(df)
-    find_nulls(df)
+    count_nulls_by_column(df)
+    count_rows_with_nulls(df)
     find_duplicates(df)
 
 def show_schema(df: DataFrame):
@@ -47,7 +48,7 @@ def count_columns(df: DataFrame):
 
     return count
 
-def find_nulls(df: DataFrame):
+def count_nulls_by_column(df: DataFrame):
     """
     Encontrar el número de valores nulos en cada columna del DataFrame.
     """
@@ -60,10 +61,19 @@ def find_nulls(df: DataFrame):
 
     return null_counts
 
+def count_rows_with_nulls(df: DataFrame):
+    """
+    Encontrar cantidad de filas con valores nulos en las columnas detectadas
+    (artists, album_name, track_name).
+    """
+    rows_with_nulls = df.filter(df.artists.isNull() | df.album_name.isNull() | df.track_name.isNull()).count()
+    logger.info(f"Cantidad de filas con valores nulos: {rows_with_nulls}")
+    return rows_with_nulls
+
 def find_duplicates(df: DataFrame):
     total = df.count()
     unique = df.dropDuplicates().count()
     duplicates = total - unique
-    logger.info(f"Duplicados: {duplicates} (Total: {total}, Únicos: {unique})")
+    logger.info(f"Duplicados: {duplicates} (Total: {total}, Unicos: {unique})")
 
     return duplicates
