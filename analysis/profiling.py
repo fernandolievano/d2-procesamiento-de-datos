@@ -17,6 +17,8 @@ def profiling(df: DataFrame):
     count_rows_with_nulls(df)
     find_duplicates(df)
 
+    logger.info("Perfilado del DataFrame finalizado")
+
 def show_schema(df: DataFrame):
     """
     Mostrar el esquema del DataFrame.

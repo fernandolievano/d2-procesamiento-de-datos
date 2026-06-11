@@ -4,27 +4,30 @@ from spark.session import create_spark_session
 from extraction.reader import read_csv
 
 from analysis import profiling
+from transform import clean_dataset
 
 logger = get_logger(__name__)
 
 # Programa Principal
 def main():
-  logger.info('Iniciando programa principal')
+    logger.info('Iniciando programa principal')
 
-  spark = create_spark_session(app_name=SPARK_APP_NAME)
+    spark = create_spark_session(app_name=SPARK_APP_NAME)
 
-  try:
-    # Extraction
-    df = read_csv(spark, DATA_PATH)
-
-    profiling(df)
-  except Exception as e:
-    logger.exception('Error al ejecutar el programa principal')
-    raise
-  finally:
-    spark.stop()
-    logger.info('Programa principal finalizado')
+    try:
+        # Extraction
+        df_raw = read_csv(spark, DATA_PATH)
+        # Perfilado del dataset original
+        profiling(df_raw)
+        # Transformation
+        df_cleaned = clean_dataset(df_raw)
+    except Exception as e:
+        logger.exception('Error al ejecutar el programa principal')
+        raise
+    finally:
+        spark.stop()
+        logger.info('Programa principal finalizado')
 
 
 if __name__ == '__main__':
-  main()
+    main()
