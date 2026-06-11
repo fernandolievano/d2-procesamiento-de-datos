@@ -3,11 +3,11 @@ from pyspark.sql import DataFrame
 
 logger = get_logger(__name__)
 
-def profiling(df: DataFrame):
+def profiling(df: DataFrame, stage: str = "Desconocida"):
     """
     Realizar un perfilado básico del DataFrame.
     """
-    logger.info("Iniciando perfilado del DataFrame")
+    logger.info(f"Iniciando perfilado del DataFrame ({stage})")
 
     show_schema(df)
     analyze_data_types(df)

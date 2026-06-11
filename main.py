@@ -1,26 +1,26 @@
-from config import SPARK_APP_NAME, DATA_PATH
+from config import SPARK_APP_NAME
 from utils.logger import get_logger
 from spark.session import create_spark_session
-from extraction.reader import read_csv
-
+from extraction import extract_dataset
 from analysis import profiling
-from transform import clean_dataset
+from transform import transform_dataset
 
 logger = get_logger(__name__)
 
 # Programa Principal
 def main():
     logger.info('Iniciando programa principal')
-
     spark = create_spark_session(app_name=SPARK_APP_NAME)
 
     try:
-        # Extraction
-        df_raw = read_csv(spark, DATA_PATH)
-        # Perfilado del dataset original
-        profiling(df_raw)
-        # Transformation
-        df_cleaned = clean_dataset(df_raw)
+        # -> Extraction
+        raw_df = extract_dataset(spark)
+        profiling(df=raw_df, stage='extraction')
+
+        # -> Transformation
+        transformed_df = transform_dataset(raw_df)
+        profiling(df=transformed_df, stage='transformation')
+
     except Exception as e:
         logger.exception('Error al ejecutar el programa principal')
         raise
