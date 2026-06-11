@@ -2,26 +2,26 @@
 
 ### EDA a gran escala con PySpark
 
-**Tecnologías usadas:**
-
+## Tecnologías usadas
 - PySpark
 - Streamlit
 - Plotly
 
-**Conceptos vistos en clase aplicados**:
-
+## Conceptos vistos en clase aplicados
 - ETL
 - EDA
 - Paralelización
 - Visualización
 
----
+## Preguntas del EDA
+- ¿Qué géneros son más populares?
+- ¿Qué artistas predominan en la lista?
+- ¿Cómo se distribuye la duración de las canciones según su género?
+- ¿Qué factores influyen en la popularidad de las canciones?
+- ¿El contenido explícito afecta la popularidad de los tracks?
+- ¿Qué características de audio (danceability, acousticness, energy) tienen las canciones más populares?
 
 ## Dataset
-
-### Descripción
-
-Este proyecto utiliza un dataset de canciones obtenido desde Spotify. Cada registro representa una canción e incluye información descriptiva (artista, álbum, género) junto con métricas de audio utilizadas para análisis musical y sistemas de recomendación.
 
 ### Estructura del Dataset
 
