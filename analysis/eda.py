@@ -183,3 +183,45 @@ def popularity_factors_to_pandas(df: DataFrame) -> pd.DataFrame:
         pd.DataFrame(rows)
         .sort_values("abs_correlation", ascending=False)
     )
+
+
+def explicit_distribution_to_pandas(df: DataFrame) -> pd.DataFrame:
+    return (
+        df.groupBy("explicit")
+        .count()
+        .orderBy("explicit")
+        .toPandas()
+    )
+
+
+def explicit_popularity_to_pandas(df: DataFrame) -> pd.DataFrame:
+    return (
+        df.groupBy("explicit")
+        .agg(
+            F.count("*").alias("track_count"),
+            F.avg("popularity").alias("avg_popularity"),
+        )
+        .orderBy("explicit")
+        .toPandas()
+    )
+
+
+def explicit_audio_features_to_pandas(df: DataFrame) -> pd.DataFrame:
+    explicit_features = (
+        df.groupBy("explicit")
+        .agg(
+            F.avg("danceability").alias("danceability"),
+            F.avg("energy").alias("energy"),
+            F.avg("acousticness").alias("acousticness"),
+            F.avg("speechiness").alias("speechiness"),
+            F.avg("instrumentalness").alias("instrumentalness"),
+            F.avg("liveness").alias("liveness"),
+            F.avg("valence").alias("valence"),
+        )
+    )
+
+    return explicit_features.toPandas().melt(
+        id_vars="explicit",
+        var_name="feature",
+        value_name="value",
+    )
