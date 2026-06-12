@@ -111,3 +111,23 @@ def genre_audio_features_to_pandas(df: DataFrame, limit: int = 15) -> pd.DataFra
         var_name="feature",
         value_name="value",
     )
+
+
+def calculate_artist_presence(df: DataFrame) -> DataFrame:
+    return (
+        df.groupBy("primary_artist")
+        .count()
+        .orderBy(F.desc("count"))
+    )
+
+
+def calculate_artist_popularity(df: DataFrame) -> DataFrame:
+    return (
+        df.groupBy("primary_artist")
+        .agg(
+            F.count("*").alias("track_count"),
+            F.avg("popularity").alias("avg_popularity"),
+        )
+        .filter(F.col("track_count") >= 3)
+        .orderBy(F.desc("avg_popularity"))
+    )
