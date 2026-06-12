@@ -58,8 +58,12 @@ def count_nulls_by_column(df: DataFrame):
 
     for column in df.columns:
         null_count = df.filter(df[column].isNull()).count()
-        null_counts[column] = null_count
-        logger.info(f"Columna '{column}': {null_count} valores nulos")
+        if null_count > 0:
+            null_counts[column] = null_count
+            logger.info(f"Columna '{column}': {null_count} valores nulos")
+
+    if not null_counts:
+        logger.info("No se encontraron valores nulos en el DataFrame")
 
     return null_counts
 
