@@ -9,6 +9,9 @@ from .eda import (
     describe_numeric_columns,
     genre_audio_features_to_pandas,
     genre_duration_to_pandas,
+    popularity_factors_to_pandas,
+    popularity_tier_features_to_pandas,
+    top_tracks_audio_features_to_pandas,
 )
 
 __all__ = [
@@ -21,5 +24,8 @@ __all__ = [
     'describe_numeric_columns',
     'genre_audio_features_to_pandas',
     'genre_duration_to_pandas',
+    'popularity_factors_to_pandas',
+    'popularity_tier_features_to_pandas',
     'profiling',
+    'top_tracks_audio_features_to_pandas',
 ]

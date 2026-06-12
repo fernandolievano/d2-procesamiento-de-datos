@@ -131,3 +131,55 @@ def calculate_artist_popularity(df: DataFrame) -> DataFrame:
         .filter(F.col("track_count") >= 3)
         .orderBy(F.desc("avg_popularity"))
     )
+
+
+def popularity_tier_features_to_pandas(df: DataFrame) -> pd.DataFrame:
+    tier_features = (
+        df.groupBy("popularity_tier")
+        .agg(
+            F.avg("danceability").alias("danceability"),
+            F.avg("energy").alias("energy"),
+            F.avg("acousticness").alias("acousticness"),
+            F.avg("speechiness").alias("speechiness"),
+            F.avg("instrumentalness").alias("instrumentalness"),
+            F.avg("liveness").alias("liveness"),
+            F.avg("valence").alias("valence"),
+            F.avg("tempo").alias("tempo"),
+        )
+    )
+
+    return tier_features.toPandas().melt(
+        id_vars="popularity_tier",
+        var_name="feature",
+        value_name="value",
+    )
+
+
+def top_tracks_audio_features_to_pandas(df: DataFrame, limit: int = 100) -> pd.DataFrame:
+    return (
+        df.orderBy(F.desc("popularity"))
+        .limit(limit)
+        .select(*AUDIO_FEATURE_COLUMNS)
+        .toPandas()
+        .melt(var_name="feature", value_name="value")
+    )
+
+
+def popularity_factors_to_pandas(df: DataFrame) -> pd.DataFrame:
+    rows = []
+
+    for column in CORRELATION_COLUMNS:
+        if column != "popularity":
+            correlation = calculate_correlation(df, column)
+            rows.append(
+                {
+                    "feature": column,
+                    "correlation": correlation,
+                    "abs_correlation": abs(correlation),
+                }
+            )
+
+    return (
+        pd.DataFrame(rows)
+        .sort_values("abs_correlation", ascending=False)
+    )
