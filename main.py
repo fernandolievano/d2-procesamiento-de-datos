@@ -13,6 +13,8 @@ def log_review_guide() -> None:
     logger.info('--- Guia rapida ---')
     logger.info(f'Dataset transformado: {DATA_TRANSFORMED_PATH}')
     logger.info('Notebook EDA: notebooks/eda_spotify_tracks.ipynb')
+    logger.info('Dashboard Streamlit: streamlit run dashboard.py')
+    logger.info('URL local del dashboard: http://localhost:8501')
     logger.info('Logs de ejecucion: logs/app.log')
     logger.info('------------------------------------------')
 

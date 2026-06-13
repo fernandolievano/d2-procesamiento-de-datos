@@ -26,6 +26,12 @@ python main.py
 
 El pipeline genera `outputs/transformed_dataset.csv`.
 
+## Dashboard
+
+```
+streamlit run dashboard.py
+```
+
 ## Preguntas del EDA
 - ¿Qué géneros son más populares?
 - ¿Qué artistas predominan en la lista?
