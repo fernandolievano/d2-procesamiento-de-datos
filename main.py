@@ -1,4 +1,4 @@
-from config import SPARK_APP_NAME
+from config import DATA_TRANSFORMED_PATH, SPARK_APP_NAME
 from utils.logger import get_logger
 from spark.session import create_spark_session
 from extraction import extract_dataset
@@ -7,6 +7,15 @@ from transform import transform_dataset
 from load import load_dataset
 
 logger = get_logger(__name__)
+
+
+def log_review_guide() -> None:
+    logger.info('--- Guia rapida ---')
+    logger.info(f'Dataset transformado: {DATA_TRANSFORMED_PATH}')
+    logger.info('Notebook EDA: notebooks/eda_spotify_tracks.ipynb')
+    logger.info('Logs de ejecucion: logs/app.log')
+    logger.info('------------------------------------------')
+
 
 # Programa Principal
 def main():
@@ -24,6 +33,7 @@ def main():
 
         # -> Load
         load_dataset(transformed_df)
+        log_review_guide()
 
     except Exception as e:
         logger.exception('Error al ejecutar el programa principal')
